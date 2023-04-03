@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAxios from "./hooks/useAxios";
 
 function App() {
+  const {fetchData, response, loading } = useAxios();
+  console.log(response);
+
+  useEffect(() => {
+    fetchData()
+  }, []);
+
   const ingredients = [{ ingredient: "penne rigate", measure: "1 pound" }];
 
   const renderList = (item) => (

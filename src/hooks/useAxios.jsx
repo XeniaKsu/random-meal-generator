@@ -1,26 +1,28 @@
+import { useState } from "react";
+import axios from "axios";
 
-
-const useAxios = () => {
-  const [response, setResponse] = useState([]);
+function useAxios() {
+  const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
-    try{
+    try {
       setLoading(true);
-      const res = await axios('www.themealdb.com/api/json/v1/1/randomselection.php')
-
-    }catch(err){
-
+      const res = await axios('http://www.themealdb.com/api/json/v1/1/randomselection.php');
+      setResponse(res.data.meals[0]);
+    } catch (err) {
+      setError(err);
     } finally {
-
+      setLoading(false);
     }
-  }
+  };
   return {
-
-  }
-
-
-};
+    response,
+    loading,
+    error,
+    fetchData
+  };
+}
 
 export default useAxios;
