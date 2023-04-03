@@ -16,7 +16,7 @@ function App() {
         Get new meal
       </button>
       <h1 className="text-4xl font-bold mt-6 underline">Title</h1>
-      <div>
+      <div className="md:grid md:grid-cols-2 md:gap-4">
         <div className="mt-4 border-orange-500 border-4 rounded-md h-80">
           <img
             className="w-full h-full object-cover"
