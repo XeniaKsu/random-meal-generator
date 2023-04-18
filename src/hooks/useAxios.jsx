@@ -9,7 +9,7 @@ function useAxios() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await axios('http://www.themealdb.com/api/json/v1/1/randomselection.php');
+      const res = await axios('https://www.themealdb.com/api/json/v1/1/random.php');
       setResponse(res.data.meals[0]);
     } catch (err) {
       setError(err);
