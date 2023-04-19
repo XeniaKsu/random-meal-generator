@@ -2,23 +2,31 @@ import { useEffect, useState } from "react";
 import useAxios from "./hooks/useAxios";
 
 function App() {
-  const {fetchData, response, loading } = useAxios();
-  const {strMeal, strMealThumb, strInstructions, strYoutube} = response;
-  const youtubeUrl = strYoutube?.replace('watch?v=', 'embed/')
+  const { fetchData, response, loading } = useAxios();
+  const { strMeal = "", strMealThumb = "", strInstructions = "", strYoutube = "" } = response;
+  const youtubeUrl = strYoutube?.replace("watch?v=", "embed/");
   console.log(response);
 
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, []);
 
-  if(loading) {
-    return <h1>Loading...</h1>
+  if (loading) {
+    return <h1>Loading...</h1>;
   }
 
-  const ingredients = [{ ingredient: "penne rigate", measure: "1 pound" }];
+  let ingredients = [];
+  Object.keys(response).forEach((item, index) => {
+    if (item.startsWith("strIngredient") && response[item]) {
+      ingredients.push({
+        ingredient: response[item],
+        measure: response[`strMeasure${index}`],
+      });
+    }
+  });
 
   const renderList = (item, index) => (
-    <div className="flex text-sm">
+    <div className="flex text-sm" key={index}>
       <li>{item.ingredient} - </li>
       <span className="italic text-gray-500">{item.measure}</span>
     </div>
@@ -26,17 +34,13 @@ function App() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <button className="bg-gray-800 text-white px-4 py-2 w-full rounded-md md:w-40">
+      <button onClick={() => fetchData()} className="bg-gray-800 text-white px-4 py-2 w-full rounded-md md:w-40">
         Get new meal
       </button>
-      <h1 className="text-4xl font-bold mt-6 underline">{response.strMeal}</h1>
+      <h1 className="text-4xl font-bold mt-6 underline">{strMeal}</h1>
       <div className="md:grid md:grid-cols-2 md:gap-4">
         <div className="mt-4 border-orange-500 border-4 rounded-md h-80">
-          <img
-            className="w-full h-full object-cover"
-            src={response.strMealThumb}
-            alt="image"
-          />
+          <img className="w-full h-full object-cover" src={strMealThumb} alt="image" />
         </div>
         <div className="my-6">
           <h3 className="text-4xl font-bold mb-2">Ingredients</h3>
