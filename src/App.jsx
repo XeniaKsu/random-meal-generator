@@ -16,12 +16,12 @@ function App() {
   }
 
   let ingredients = [];
-  Object.keys(response).forEach((item, index) => {
-    if (item.startsWith("strIngredient") && response[item]) {
+  Object.keys(response).forEach((item , index) => {
+    if(response[`strIngredient${index}`]) {
       ingredients.push({
-        ingredient: response[item],
-        measure: response[`strMeasure${index}`],
-      });
+        "ingredient": response[`strIngredient${index}`],
+        "measure": response[`strMeasure${index}`]
+      })
     }
   });
 
