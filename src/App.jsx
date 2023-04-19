@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Skeleton from "./components/Skeleton";
 import useAxios from "./hooks/useAxios";
 
 function App() {
@@ -11,8 +12,20 @@ function App() {
     fetchData();
   }, []);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
+  if(loading) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-10">
+        <Skeleton className='h-10 md:w-40' />
+        <Skeleton className='h-10 w-72 mt-6' />
+        <div className="grid gap-4 md:grid-cols-2 mt-4">
+          <Skeleton className='md:h-72 h-52' />
+          <Skeleton className='md:h-72 h-52' />
+        </div>
+        <Skeleton className='h-10 w-72 mt-6' />
+        <Skeleton className='h-64 mt-6' />
+        <Skeleton className='h-72 mt-6' />
+      </div>
+    )
   }
 
   let ingredients = [];

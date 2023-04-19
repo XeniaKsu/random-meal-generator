@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Skeleton = ({className}) => {
   return (
@@ -8,3 +8,4 @@ const Skeleton = ({className}) => {
     </div>
   )
 }
+export default Skeleton
